@@ -16,7 +16,5 @@
     "url": "https://github.com/yibuyisheng/utilities/issues"
   },
   "homepage": "https://github.com/yibuyisheng/utilities",
-  "dependencies": {
-    "webpack": "^1.7.3"
-  }
+  "dependencies": {}
 }
