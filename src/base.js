@@ -29,7 +29,7 @@ function isArray(obj) {
     return getClassName(obj) === 'Array';
 }
 
-function isString() {
+function isString(obj) {
     return getClassName(obj) === 'String';
 }
 
