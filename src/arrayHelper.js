@@ -7,7 +7,9 @@ module.exports = {
     filter: filter,
     forEach: forEach,
     some: some,
-    distinctArray: distinctArray
+    distinctArray: distinctArray,
+    every: every,
+    groupBy: groupBy
 };
 
 function reduce(arr, callback, initialValue) {
@@ -81,6 +83,19 @@ function some(arr, fn, thisArg) {
     return some.call(arr, fn, thisArg);
 }
 
+function every(arr, fn, thisArg) {
+    if (!base.isArray(arr) || !base.isFunction(fn)) return;
+
+    var every = Array.prototype.every || function(fn, thisArg) {
+        for (var i in arr) {
+            if (!fn.call(thisArg, this, this[i], i, this)) return false;
+        }
+        return true;
+    };
+
+    return every.call(arr, fn, thisArg);
+}
+
 /**
  * 去除数组中的重复元素
  * mergeFn 是合并的函数，指定当前元素和之前元素相同的情况下如何合并
@@ -98,4 +113,17 @@ function distinctArray(array, hashFn, mergeFn) {
         }
     }
     return base.values(compareMap);
+}
+
+function groupBy(arr, keyFn) {
+    if (!base.isArray(arr)) throw TypeError('the first argument must be an array');
+    if (!base.isFunction(keyFn)) throw TypeError('the second argument must be a Function');
+
+    var obj = {};
+    for (var i in arr) {
+        var key = keyFn(arr[i], i, arr);
+        obj[key] = obj[key] || [];
+        obj[key].push(arr[i]);
+    }
+    return obj;
 }
