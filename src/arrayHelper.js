@@ -81,13 +81,21 @@ function some(arr, fn, thisArg) {
     return some.call(arr, fn, thisArg);
 }
 
-function distinctArray(array, hashFn) {
+/**
+ * 去除数组中的重复元素
+ * mergeFn 是合并的函数，指定当前元素和之前元素相同的情况下如何合并
+ */
+function distinctArray(array, hashFn, mergeFn) {
     if (!base.isFunction(hashFn)) throw new Error('need a hash function to compare each element');
     var compareMap = {};
     for (var i in array) {
         var item = array[i];
         var hash = hashFn(item);
-        compareMap[hash] = item;
+        if (compareMap[hash] && base.isFunction(mergeFn)) {
+            compareMap[hash] = mergeFn(compareMap[hash], item);
+        } else {
+            compareMap[hash] = item;
+        }
     }
-    return global.base.values(compareMap);
+    return base.values(compareMap);
 }
