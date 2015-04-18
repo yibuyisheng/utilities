@@ -103,8 +103,12 @@ function keys(obj) {
         return Object.keys(obj);
     }
 
-    var keys = [], i = 0;
-    for (keys[i++] in obj);
+    var keys = [];
+    // 可枚举的自有属性
+    for (var k in obj) {
+        if (!obj.propertyIsEnumerable(k)) continue;
+        keys.push(k);
+    }
     return keys;
 }
 
