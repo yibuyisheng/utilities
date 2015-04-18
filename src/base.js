@@ -103,10 +103,8 @@ function keys(obj) {
         return Object.keys(obj);
     }
 
-    var keys = [];
-    for (var k in obj) {
-        keys.push(k);
-    }
+    var keys = [], i = 0;
+    for (keys[i++] in obj);
     return keys;
 }
 
