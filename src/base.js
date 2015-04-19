@@ -10,7 +10,8 @@ module.exports = {
     bind: bind,
     format: format,
     keys: keys,
-    values: values
+    values: values,
+    isNumber: isNumber
 };
 
 function getClassName(obj) {
@@ -31,6 +32,10 @@ function isArray(obj) {
 
 function isString(obj) {
     return getClassName(obj) === 'String';
+}
+
+function isNumber(obj) {
+    return getClassName(obj) === 'Number';
 }
 
 /**
