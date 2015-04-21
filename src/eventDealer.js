@@ -23,6 +23,14 @@ var eventDealer = {
         this._cbs[eventName] = arrayHelper.map(this._cbs[eventName], function(val, index, arr) {
             return val === cb ? null : val;
         });
+    },
+    once: function(eventName, cb) {
+        this.on(eventName, handler);
+
+        function handler() {
+            cb instanceof Function && cb.apply(this, arguments);
+            this.off(eventName, handler);
+        }
     }
 };
 
