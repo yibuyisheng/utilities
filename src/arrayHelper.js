@@ -34,6 +34,20 @@ var map = Array.prototype.map
         return newArr;
     };
 
+var filter = Array.prototype.filter
+    ? function(arr, fn, thisArg) {
+        return Array.prototype.filter(arr, fn, thisArg);
+    }
+    : function(arr, fn, thisArg) {
+        _isArray(arr);
+
+        var newArr = [];
+        for (var i = 0, il = arr.length; i < il; i++) {
+            if (fn.call(arr, arr[i], i, arr)) newArr.push(arr[i]);
+        }
+        return newArr;
+    };
+
 function _isArray(arr) {
     if (!base.isArray(arr)) throw new TypeError('the first argument must be an Array');
 }
@@ -48,20 +62,6 @@ module.exports = {
     every: every,
     groupBy: groupBy
 };
-
-function filter(arr, fn, thisArg) {
-    if (!base.isArray(arr) || !base.isFunction(fn)) return arr;
-
-    var filter = Array.prototype.filter || function(fn, thisArg) {
-        var newArr = [];
-        for (var i in this) {
-            if (fn.call(thisArg, this, this[i], i, this)) newArr.push(this[i]);
-        }
-        return newArr;
-    };
-
-    return filter.call(arr, fn, thisArg);
-}
 
 function forEach(arr, fn, thisArg) {
     if (!base.isArray(arr) || !base.isFunction(fn)) return;
