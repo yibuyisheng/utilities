@@ -63,6 +63,17 @@ var some = Array.prototype.some
         return false;
     };
 
+var every = Array.prototype.every
+    ? Array.prototype.every.call
+    : function(arr, fn, thisArg) {
+        _isArray(arr);
+
+        for (var i = 0, il = arr.length; i < il; i++) {
+            if (!fn.call(thisArg, arr[i], i, arr)) return false;
+        }
+        return true;
+    };
+
 function _isArray(arr) {
     if (!base.isArray(arr)) throw new TypeError('the first argument must be an Array');
 }
@@ -77,19 +88,6 @@ module.exports = {
     every: every,
     groupBy: groupBy
 };
-
-function every(arr, fn, thisArg) {
-    if (!base.isArray(arr) || !base.isFunction(fn)) return;
-
-    var every = Array.prototype.every || function(fn, thisArg) {
-        for (var i in arr) {
-            if (!fn.call(thisArg, this, this[i], i, this)) return false;
-        }
-        return true;
-    };
-
-    return every.call(arr, fn, thisArg);
-}
 
 /**
  * 去除数组中的重复元素
