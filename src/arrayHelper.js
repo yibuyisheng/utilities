@@ -52,6 +52,17 @@ var forEach = Array.prototype.forEach
         }
     };
 
+var some = Array.prototype.some
+    ? Array.prototype.some.call
+    : function(arr, fn, thisArg) {
+        _isArray(arr);
+
+        for (var i = 0, il = arr.length; i < il; i++) {
+            if (fn.call(thisArg, arr[i], i, arr)) return true;
+        }
+        return false;
+    };
+
 function _isArray(arr) {
     if (!base.isArray(arr)) throw new TypeError('the first argument must be an Array');
 }
@@ -66,19 +77,6 @@ module.exports = {
     every: every,
     groupBy: groupBy
 };
-
-function some(arr, fn, thisArg) {
-    if (!base.isArray(arr) || !base.isFunction(fn)) return;
-
-    var some = Array.prototype.some || function(fn, thisArg) {
-        for (var i in arr) {
-            if (fn.call(thisArg, this, this[i], i, this)) return true;
-        }
-        return false;
-    };
-
-    return some.call(arr, fn, thisArg);
-}
 
 function every(arr, fn, thisArg) {
     if (!base.isArray(arr) || !base.isFunction(fn)) return;
