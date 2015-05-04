@@ -1,6 +1,24 @@
 // 依赖
 var base = require('./base.js');
 
+var reduce = Array.prototype.reduce
+    ? function(arr, callback, initialValue) {
+        Array.prototype.reduce.call(arr, callback, initialValue);
+    }
+    : function(arr, callback, initialValue) {
+        if (!base.isArray(arr)) throw new TypeError('the first argument must be an Array');
+
+        var arr = initialValue ? Array.prototype.concat.call(arr, initialValue) : arr;
+        if (arr.length < 2) return initialValue;
+
+        var previousValue = arr[0];
+        for (var i = 1, il = arr.length; i < il; i++) {
+            previousValue = callback(previousValue, arr[i], i, arr);
+        }
+
+        return previousValue;
+    };
+
 module.exports = {
     reduce: reduce,
     map: map,
@@ -11,24 +29,6 @@ module.exports = {
     every: every,
     groupBy: groupBy
 };
-
-function reduce(arr, callback, initialValue) {
-    if (!base.isArray(arr)) return;
-
-    var reduce = Array.prototype.reduce || function(callback, initialValue) {
-        if (!base.isFunction(callback)) return;
-
-        var arr = initialValue ? Array.prototype.concat.call(this, initialValue) : this;
-        if (arr.length < 2) return initialValue;
-
-        var previousValue = arr[0];
-        for (var i = 1, len = arr.length; i < len; i += 1) {
-            previousValue = callback(previousValue, this[i], i, this);
-        }
-        return previousValue;
-    };
-    return reduce.call(arr, callback, initialValue);
-}
 
 function map(arr, fn, thisArg) {
     if (!base.isArray(arr) || !base.isFunction(fn)) return arr;
