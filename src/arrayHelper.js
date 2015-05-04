@@ -2,9 +2,7 @@
 var base = require('./base.js');
 
 var reduce = Array.prototype.reduce
-    ? function(arr, callback, initialValue) {
-        return Array.prototype.reduce.call(arr, callback, initialValue);
-    }
+    ? Array.prototype.reduce.call
     : function(arr, callback, initialValue) {
         _isArray(arr);
 
@@ -20,9 +18,7 @@ var reduce = Array.prototype.reduce
     };
 
 var map = Array.prototype.map
-    ? function(arr, fn, thisArg) {
-        return Array.prototype.map.call(arr, fn, thisArg);
-    }
+    ? Array.prototype.map.call
     : function(arr, fn, thisArg) {
         _isArray(arr);
 
@@ -35,17 +31,25 @@ var map = Array.prototype.map
     };
 
 var filter = Array.prototype.filter
-    ? function(arr, fn, thisArg) {
-        return Array.prototype.filter(arr, fn, thisArg);
-    }
+    ? Array.prototype.filter.call
     : function(arr, fn, thisArg) {
         _isArray(arr);
 
         var newArr = [];
         for (var i = 0, il = arr.length; i < il; i++) {
-            if (fn.call(arr, arr[i], i, arr)) newArr.push(arr[i]);
+            if (fn.call(thisArg, arr[i], i, arr)) newArr.push(arr[i]);
         }
         return newArr;
+    };
+
+var forEach = Array.prototype.forEach
+    ? Array.prototype.forEach.call
+    : function(arr, fn, thisArg) {
+        _isArray(arr);
+
+        for (var i = 0, il = arr.length; i < il; i++) {
+            fn.call(thisArg, arr[i], i, arr);
+        }
     };
 
 function _isArray(arr) {
@@ -62,18 +66,6 @@ module.exports = {
     every: every,
     groupBy: groupBy
 };
-
-function forEach(arr, fn, thisArg) {
-    if (!base.isArray(arr) || !base.isFunction(fn)) return;
-
-    var forEach = Array.prototype.forEach || function(fn, thisArg) {
-        for (var i in this) {
-            fn.call(thisArg, this, this[i], i, this);
-        }
-    };
-
-    forEach.call(arr, fn, thisArg);
-}
 
 function some(arr, fn, thisArg) {
     if (!base.isArray(arr) || !base.isFunction(fn)) return;
