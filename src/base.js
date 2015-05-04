@@ -45,13 +45,19 @@ function extend() {
     var args = arguments;
     if (!args.length) return;
     if (!args.length === 1) return args[0];
+    if (isValueType(args[0])) return args[0];
 
+    for (var i = 1, il = args.length; i < il; i += 1) {
+        args[0] = merge(args[0], args[i]);
+    }
+
+    return args[0];
+    
     function isValueType(obj) {
         return typeof obj !== 'object' // 不是对象类型
             || typeof obj === 'undefined' || obj === null;
     }
-    if (isValueType(args[0])) return args[0];
-
+    
     function merge(obj1, obj2) {
         if (isValueType(obj2)) return obj1;
 
@@ -67,12 +73,6 @@ function extend() {
         }
         return obj1;
     }
-
-    for (var i = 1, il = args.length; i < il; i += 1) {
-        args[0] = merge(args[0], args[i]);
-    }
-
-    return args[0];
 }
 
 function bind(fn, thisArg) {
