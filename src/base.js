@@ -52,12 +52,12 @@ function extend() {
     }
 
     return args[0];
-    
+
     function isValueType(obj) {
         return typeof obj !== 'object' // 不是对象类型
             || typeof obj === 'undefined' || obj === null;
     }
-    
+
     function merge(obj1, obj2) {
         if (isValueType(obj2)) return obj1;
 

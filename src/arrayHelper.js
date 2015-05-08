@@ -2,7 +2,7 @@
 var base = require('./base.js');
 
 var reduce = Array.prototype.reduce
-    ? Array.prototype.reduce.call
+    ? _call(Array.prototype.reduce)
     : function(arr, callback, initialValue) {
         _isArray(arr);
 
@@ -18,7 +18,7 @@ var reduce = Array.prototype.reduce
     };
 
 var map = Array.prototype.map
-    ? Array.prototype.map.call
+    ? _call(Array.prototype.map)
     : function(arr, fn, thisArg) {
         _isArray(arr);
 
@@ -31,7 +31,7 @@ var map = Array.prototype.map
     };
 
 var filter = Array.prototype.filter
-    ? Array.prototype.filter.call
+    ? _call(Array.prototype.filter)
     : function(arr, fn, thisArg) {
         _isArray(arr);
 
@@ -43,7 +43,7 @@ var filter = Array.prototype.filter
     };
 
 var forEach = Array.prototype.forEach
-    ? Array.prototype.forEach.call
+    ? _call(Array.prototype.forEach)
     : function(arr, fn, thisArg) {
         _isArray(arr);
 
@@ -53,7 +53,7 @@ var forEach = Array.prototype.forEach
     };
 
 var some = Array.prototype.some
-    ? Array.prototype.some.call
+    ? _call(Array.prototype.some)
     : function(arr, fn, thisArg) {
         _isArray(arr);
 
@@ -64,7 +64,7 @@ var some = Array.prototype.some
     };
 
 var every = Array.prototype.every
-    ? Array.prototype.every.call
+    ? _call(Array.prototype.every)
     : function(arr, fn, thisArg) {
         _isArray(arr);
 
@@ -73,10 +73,6 @@ var every = Array.prototype.every
         }
         return true;
     };
-
-function _isArray(arr) {
-    if (!base.isArray(arr)) throw new TypeError('the first argument must be an Array');
-}
 
 module.exports = {
     reduce: reduce,
@@ -88,6 +84,13 @@ module.exports = {
     every: every,
     groupBy: groupBy
 };
+
+/**
+ * TODO: 链式调用
+ */
+function chain(arr) {
+
+}
 
 /**
  * 去除数组中的重复元素
@@ -119,4 +122,14 @@ function groupBy(arr, keyFn) {
         obj[key].push(arr[i]);
     }
     return obj;
+}
+
+function _isArray(arr) {
+    if (!base.isArray(arr)) throw new TypeError('the first argument must be an Array');
+}
+
+function _call(method) {
+    return function(arr, fn, thisArg) {
+        method.call(arr, fn, thisArg);
+    };
 }
