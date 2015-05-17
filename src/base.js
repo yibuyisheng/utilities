@@ -125,3 +125,15 @@ function values(obj) {
     }
     return values;
 }
+
+// 从对象中取出键值
+function getProp(obj, props, dft) {
+    if (!isObject(obj)) return dft || '';
+    if (!isArray(props)) return obj || dft || '';
+
+    for (var i = 0, il = props.length; i < il; i++) {
+        obj = isObject(obj) ? obj[props[i]] : null;
+    }
+
+    return obj || dft || '';
+}
