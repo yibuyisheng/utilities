@@ -130,6 +130,6 @@ function _isArray(arr) {
 
 function _call(method) {
     return function(arr, fn, thisArg) {
-        method.call(arr, fn, thisArg);
+        return method.call(arr, fn, thisArg);
     };
 }
