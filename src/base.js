@@ -132,7 +132,7 @@ function getProp(obj, props, dft) {
     if (!isArray(props)) return obj || dft || '';
 
     for (var i = 0, il = props.length; i < il; i++) {
-        obj = isObject(obj) ? obj[props[i]] : null;
+        obj = isObject(obj) || isArray(obj) ? obj[props[i]] : null;
     }
 
     return obj || dft || '';
