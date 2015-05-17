@@ -34,6 +34,7 @@ function buildUrl(url, params) {
 function encode(params) {
     var result = [];
     for (var k in params) {
+        if (!k || !params[k]) continue;
         result.push(encodeURIComponent(k) + '=' + encodeURIComponent(params[k]));
     }
 
