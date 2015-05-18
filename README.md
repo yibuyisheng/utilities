@@ -32,53 +32,35 @@
         base.getProp({a: [1, 2, 3]}, ['a', 1, 'abc'], 'default'); // 返回字符串：'default'
       ```
 
-  * base.getClassName(obj)
+  * base.getClassName(obj)<br>
       获取 obj 的类型名。
 
-  * base.isObject(obj)
+  * base.isObject(obj)<br>
       判断 obj 是否是一个 Object 类型。
 
-  * base.isFunction(obj)
-
-    **概述**<br>
+  * base.isFunction(obj)<br>
       判断 obj 是否是一个函数对象。
 
-  * base.isArray(obj)
-
-    **概述**<br>
+  * base.isArray(obj)<br>
       判断 obj 是否是一个 Array 类型（不包括类数组）。
 
-  * base.isString(obj)
-
-    **概述**<br>
+  * base.isString(obj)<br>
       判断 obj 是否是 String 类型。
 
-  * base.isNumber(obj)
-
-    **概述**<br>
+  * base.isNumber(obj)<br>
       判断 obj 是否是 Number 类型。
 
-  * base.extend(obj1, obj2, obj3, ...)
-
-    **概述**<br>
+  * base.extend(obj1, obj2, obj3, ...)<br>
       深度复制合并对象属性，将 obj2 、 obj3 ... 一系列对象属性深复制到 obj1 上，并返回合并后的对象。
 
-  * base.bind(fn, thisArg, arg1, arg2, ...)
-
-    **概述**<br>
+  * base.bind(fn, thisArg, arg1, arg2, ...)<br>
       类似于 EcmaScript 5 的 Function.prototype.bind() 方法，给 fn 绑定 thisArg 作为执行上下文（this），并且预传入 arg1 、 arg2 ... 作为函数参数。该函数返回一个函数对象。
 
-  * base.format(str, arg1, arg2, arg3, ...)
-
-    **概述**<br>
+  * base.format(str, arg1, arg2, arg3, ...)<br>
       将 arg1 、 arg2 、 arg3 ... 格式化到 str 中，依次替换 str 中的 `{0}` 、 `{1}` 、 `{2}` ... 。
 
-  * base.keys(obj)
-
-    **概述**<br>
+  * base.keys(obj)<br>
       获取 obj 中可枚举的键，返回键数组。
 
-  * base.values(obj)
-
-    **概述**<br>
+  * base.values(obj)<br>
       获取 obj 中可枚举键对应的键值，返回键值数组。
