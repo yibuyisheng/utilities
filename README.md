@@ -33,13 +33,9 @@
       ```
 
   * base.getClassName(obj)
-
-    **概述**<br>
       获取 obj 的类型名。
 
   * base.isObject(obj)
-
-    **概述**<br>
       判断 obj 是否是一个 Object 类型。
 
   * base.isFunction(obj)
