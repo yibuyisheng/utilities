@@ -33,4 +33,6 @@ function deal(queue, data) {
     }
 }
 
-module.exports = queue;
+module.exports = function() {
+    return new Queue();
+};
