@@ -67,7 +67,6 @@ function extend() {
             }
             // 是对象类型
             else {
-                obj1[k] = {};
                 merge(obj1[k], obj2[k]);
             }
         }
