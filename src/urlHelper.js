@@ -15,8 +15,8 @@ function renderToHref(str) {
     });
 }
 
-function getParams(url) {
-    var search = url.split('?');
+function getParams(url, sep) {
+    var search = url.split(sep || '?');
     if (search.length <= 1) {
         return {};
     }
@@ -25,10 +25,11 @@ function getParams(url) {
     return _decode(search);
 }
 
-function buildUrl(url, params) {
-    var params = base.extend(getParams(url), params);
+function buildUrl(url, params, sep) {
+    sep = sep || '?';
 
-    return url.split('?')[0] + '?' + encode(params);
+    var params = base.extend(getParams(url), params);
+    return url.split(sep)[0] + sep + encode(params);
 }
 
 function encode(params) {
