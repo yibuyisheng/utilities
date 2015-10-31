@@ -12,7 +12,8 @@ module.exports = {
     keys: keys,
     values: values,
     isNumber: isNumber,
-    generateUUID: generateUUID
+    generateUUID: generateUUID,
+    getProp: getProp
 };
 
 function generateUUID(){
